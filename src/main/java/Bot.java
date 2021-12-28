@@ -52,6 +52,7 @@ public class Bot extends TelegramLongPollingBot {
         keyboardSecondRow.add(new KeyboardButton("Регистрация"));
 
         keyboardRowList.add(keyboardFirstRow);
+        keyboardRowList.add(keyboardSecondRow);
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
     }
 
