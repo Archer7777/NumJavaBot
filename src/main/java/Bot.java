@@ -45,9 +45,11 @@ public class Bot extends TelegramLongPollingBot {
 
         List<KeyboardRow> keyboardRowList = new ArrayList<>();
         KeyboardRow keyboardFirstRow = new KeyboardRow();
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
 
         keyboardFirstRow.add(new KeyboardButton("Помочь"));
         keyboardFirstRow.add(new KeyboardButton("Настройки"));
+        keyboardSecondRow.add(new KeyboardButton("Регистрация"));
 
         keyboardRowList.add(keyboardFirstRow);
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
@@ -70,6 +72,8 @@ public class Bot extends TelegramLongPollingBot {
             switch (message.getText()) {
                 case "Помочь" -> sendMsg(message, "Чем могу помоч?");
                 case "Настройки" -> sendMsg(message, "Что будем настраивать?");
+                case "Регистрация" -> sendMsg(message, "Регистрируемся...");
+
                 default -> {
                 }
             }
