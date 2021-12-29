@@ -9,11 +9,12 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bot extends TelegramLongPollingBot {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(new Bot());
@@ -68,14 +69,20 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        Model model = new Model();
         Message message = update.getMessage();
-        if(message != null && message.hasText()) {
+        if (message != null && message.hasText()) {
             switch (message.getText()) {
                 case "Помочь" -> sendMsg(message, "Чем могу помоч?");
                 case "Настройки" -> sendMsg(message, "Что будем настраивать?");
                 case "Регистрация" -> sendMsg(message, "Регистрируемся...");
 
                 default -> {
+                    try {
+                        sendMsg(message, Weather.getWeather(message.getText(), model));
+                    } catch (IOException e) {
+                        sendMsg(message, "Город не найден!");
+                    }
                 }
             }
         }
